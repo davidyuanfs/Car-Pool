@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/passenger_driver"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:textSize="20sp" />
+    
+    <EditText
+        android:id="@+id/passenger_name"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:ems="10"
+        android:hint="Name" >
+        
+        <requestFocus />
+    </EditText>
+    <EditText
+        android:id="@+id/passenger_phone"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:ems="10"
+        android:hint="Phone Number" >
+    </EditText> 
+    <EditText
+        android:id="@+id/passenger_decrip"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:ems="10"
+        android:hint="Description" >
+    </EditText>    
+    <Button
+        android:id="@+id/button_confirm"
+        android:layout_width="258dp"
+        android:layout_height="45dp"
+        android:onClick="onClickConfirm"
+        android:layout_gravity="center"
+        android:text="Need a Ride!"/>
+    
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </ListView>
+    
+</LinearLayout>

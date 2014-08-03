@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <EditText
+        android:id="@+id/owner_name"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:ems="10"
+        android:hint="Name" >
+
+        <requestFocus />
+    </EditText>
+    <EditText
+        android:id="@+id/owner_plateno"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:ems="10"
+        android:hint="Plate Number" >
+    </EditText> 
+    <EditText
+        android:id="@+id/owner_mile"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:ems="10"
+        android:hint="Max Radis (miles)" >
+    </EditText>    
+    <EditText
+        android:id="@+id/owner_time"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:ems="10"
+        android:hint="Max Serving Time" >
+    </EditText>
+   
+    <EditText
+        android:id="@+id/owner_area"
+        android:layout_width="fill_parent"
+        android:layout_height="45dp"
+        android:ems="10"
+        android:hint="Serving Area" >
+    </EditText>    
+   
+    <Button
+        android:id="@+id/button_post"
+        android:layout_width="258dp"
+        android:layout_height="45dp"
+        android:onClick="onClickPost"
+        android:layout_gravity="center"
+        android:text="Post Me" />
+    <Button
+        android:id="@+id/button_viewrequests"
+        android:layout_width="258dp"
+        android:layout_height="45dp"
+        android:onClick="onViewPosts"
+        android:layout_gravity="center"
+        android:text="View Requests to Me" />
+
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </ListView>
+    
+</LinearLayout>

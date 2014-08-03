@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/owner_plateno"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/button_view_requests"
+        android:layout_width="136dp"
+        android:layout_height="45dp"
+        android:onClick="onClickRefresh"
+        android:layout_gravity="center"
+        android:text="Refresh" />
+
+
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+    </ListView>
+    
+</LinearLayout>
