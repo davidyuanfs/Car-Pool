@@ -179,5 +179,21 @@ public class HttpClientConnection{
 		return url.toString();
 	}
 	
+	public String setApprovedURL(String passengerName){
+		//http://localhost:8080/Restful/mobile/setApproved?passengerName=test
+		StringBuffer url = new StringBuffer(EC2_URL+"setApproved?");
+		url.append("passengerName="+passengerName);
+		System.out.println(url.toString());
+		return url.toString();
+	}
+	
+	public String getApprovedURL(String passengerName){
+		//http://localhost:8080/Restful/mobile/getApproved?passengerName=test
+		StringBuffer url = new StringBuffer(EC2_URL+"getApproved?");
+		url.append("passengerName="+passengerName);
+		System.out.println(url.toString());
+		return url.toString();
+	}
+	
 	
 }

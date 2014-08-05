@@ -126,6 +126,28 @@ public class ViewRequestsActivity extends ListActivity {
 			    	//		 Name and plate number) and owner's location(retrieved from server again, based on the clicked list item) 
 			    	//       and draw a path in a pathactivity
 			        //LatLng  fromPosition = new LatLng(40.663837, -79.147297);// owner's location
+			    	
+			    	try {
+				    							
+						final String url = client.setApprovedURL(passenger.getName());
+						System.out.println(url);
+						final String[] result = new String[1];
+						new Thread(new Runnable() {
+							public void run() {
+								try {
+									result[0] = client.sendGet(url);
+								} catch (Exception e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+						}).start();
+						
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			    	
 			        LatLng  toPosition = new LatLng(passenger.getLatitude(), passenger.getLongitude());  // passenger's location
 			        //LatLng  toPosition = new LatLng(40.457263, -79.934059);  // passenger's location
 			        Intent intent = new Intent(ViewRequestsActivity.this, MapDirectActivity.class);

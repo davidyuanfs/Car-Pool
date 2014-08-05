@@ -60,7 +60,7 @@ public class ConfirmDriverActivity extends ListActivity {
 			double lat = location.getLatitude();
 			double lon = location.getLongitude();
 			Passenger passenger = new Passenger(passengerName, passengerPhone,
-					passengerDesc, lon, lat);
+					passengerDesc, lon, lat, false);
 			final String url = client.confirmTheDriver(ownerNameVal, passenger);
 			System.out.println(url);
 			final String[] result = new String[1];

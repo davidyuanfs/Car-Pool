@@ -6,18 +6,20 @@ public class Passenger {
 	private String description;
 	private double longitude;
 	private double latitude;
+	private boolean approve;
 	
 	public Passenger(){
 		
 	}
 	
 	public Passenger(String name, String phone, String description,
-			double longitude, double latitude) {
+			double longitude, double latitude, boolean approve) {
 		this.name = name;
 		this.phone = phone;
 		this.description = description;
 		this.setLongitude(longitude);
 		this.setLatitude(latitude);
+		this.approve = approve;
 	}
 	
 	/**
@@ -71,6 +73,14 @@ public class Passenger {
 
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
+	}
+
+	public boolean isApprove() {
+		return approve;
+	}
+
+	public void setApprove(boolean approve) {
+		this.approve = approve;
 	}
 
 	@Override
