@@ -89,7 +89,7 @@ public class CarSearchActivity extends ListActivity {
 				buttonConfirm.setBackgroundColor(Color.GREEN);
 			}
 			else
-				driverInfo.setText("Hi,"+passenger+"!\n Not approve yet by "+driver+". Plate Number:" + plateNumber);
+				driverInfo.setText("Hi,"+passenger+"!\nNot approve yet by "+driver+". Plate Number:" + plateNumber);
 			buttonSearch.setVisibility(View.GONE);
 			buttonRefresh.setVisibility(View.GONE);
 			searchBox.setVisibility(View.GONE);

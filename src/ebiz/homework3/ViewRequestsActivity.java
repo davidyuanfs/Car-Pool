@@ -57,7 +57,7 @@ public class ViewRequestsActivity extends ListActivity {
 		    ownerNameVal = intent.getStringExtra(CarPostActivity.OWNERNAME);
 			// set textview with name and plate no
 		    TextView ownerPlateNo = (TextView)findViewById(R.id.owner_plateno);
-		    ownerPlateNo.setText(ownerNameVal + " (Plate Number:" + ownerPlateNoVal+")") ;
+		    ownerPlateNo.setText("Driver: "+ownerNameVal) ;
 		    
 		    // retrieve requests
 		    onClickRefresh();
