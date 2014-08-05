@@ -85,11 +85,11 @@ public class CarSearchActivity extends ListActivity {
 			String driver = ((CarPoolApplication) this.getApplication()).getPickDriver();
 			String plateNumber = ((CarPoolApplication) this.getApplication()).getPlateNumber();
 			if(((CarPoolApplication) this.getApplication()).isApproved()){
-				driverInfo.setText("Hi, "+passenger+" !\n"+driver+" already approved and is coming to pick you up! Plate Number:" + plateNumber);
+				driverInfo.setText("Hi "+passenger+", \n"+"Your request has been approved by "+driver+"(Plate Number - "+plateNumber+"), who is on the way to pick you up!");
 				buttonConfirm.setBackgroundColor(Color.GREEN);
 			}
 			else
-				driverInfo.setText("Hi,"+passenger+"!\nNot approve yet by "+driver+". Plate Number:" + plateNumber);
+				driverInfo.setText("Hi "+passenger+", \n"+"Your request is waiting for approval from "+driver+"(Plate Number - "+plateNumber+"). Thanks for your patience!");
 			buttonSearch.setVisibility(View.GONE);
 			buttonRefresh.setVisibility(View.GONE);
 			searchBox.setVisibility(View.GONE);
