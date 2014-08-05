@@ -1,11 +1,5 @@
 package ebiz.homework3;
 
-/***
- * @title 08723 - Homework 2
- * @author yutongl2@andrew.cmu.edu
- * @time 07/22/2014
- *
- */
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

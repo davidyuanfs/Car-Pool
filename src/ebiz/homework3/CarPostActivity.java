@@ -11,6 +11,7 @@ import ebiz.homework3.util.HttpClientConnection;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -41,7 +42,7 @@ import android.widget.TextView;
 
 import android.widget.Toast;
 
-public class CarPostActivity extends ListActivity {
+public class CarPostActivity extends Activity {
 	private MyService mBoundService;
 	private HttpClientConnection client = new HttpClientConnection();
 	private EditText ownerName;
@@ -75,9 +76,9 @@ public class CarPostActivity extends ListActivity {
 		String ownerAreaVal = ownerArea.getText().toString().trim();
 		
 		// check if any miss field
-		if (ownerName == null) {
+		if (ownerNameVal == null) {
 			Toast.makeText(getApplicationContext(),
-					"name field required, please make sure provide it",
+					"The car owner is required to retrieve all associated requests from passengers",
 					Toast.LENGTH_LONG).show();
 			return;
 		}
@@ -103,6 +104,14 @@ public class CarPostActivity extends ListActivity {
 			String ownerPlateNoVal = ownerPlateNo.getText().toString().trim();
 			String ownerAreaVal = ownerArea.getText().toString().trim();
 
+			// make sure all 5 fileds are filled out.
+			if (ownerNameVal == null || ownerTimeVal == null || ownerMileVal == null || ownerPlateNoVal == null || ownerAreaVal == null
+					|| ownerNameVal.isEmpty() || ownerTimeVal.isEmpty() || ownerMileVal.isEmpty() || ownerPlateNoVal.isEmpty() || ownerAreaVal.isEmpty()) {
+				Toast.makeText(getApplicationContext(),
+						"All fields are required for a carpooling post",
+						Toast.LENGTH_LONG).show();
+				return;
+			}
 			int maxPassenger = 5;
 			Location location = mBoundService.getCurrentLocation();
 			double lat = location.getLatitude();
@@ -134,7 +143,7 @@ public class CarPostActivity extends ListActivity {
 			intent.putExtra(OWNERPLNO, ownerPlateNoVal);
 			intent.putExtra(OWNERAREA, ownerAreaVal);
 			Toast.makeText(getApplicationContext(),
-					"Directing to GoogleMap...", Toast.LENGTH_LONG).show();
+					"Locating your position on GoogleMap...", Toast.LENGTH_LONG).show();
 			startActivity(intent);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

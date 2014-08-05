@@ -1,11 +1,7 @@
 package ebiz.homework3;
 
-/***
- * @title 08723 - Homework 2
- * @author yutongl2@andrew.cmu.edu
- * @time 07/22/2014
- *
- */
+
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -150,6 +146,8 @@ public class MapDirectActivity extends FragmentActivity implements
 	        myLocationClient.requestLocationUpdates(
 	                REQUEST,
 	                this); // LocationListener
+	        Toast.makeText(getApplicationContext(), "Calculating direction...", Toast.LENGTH_LONG).show();						
+			
 	        Log.v("info", "connected");
 	        
 	    }
@@ -222,7 +220,7 @@ public class MapDirectActivity extends FragmentActivity implements
 	    @Override
 	    public void onLocationChanged(Location location) {
 	    	Log.v("info", "onlocatiochanged start");
-
+	    	
 	    	// check if the location is null
 	    	if (location == null) {
 	    		myLocationClient.removeLocationUpdates(this);
@@ -252,7 +250,7 @@ public class MapDirectActivity extends FragmentActivity implements
 			    String ownerarea = intent.getStringExtra(CarPostActivity.OWNERAREA);
 			    
 			    //[todo]send location+above to server
-			    Toast.makeText(getApplicationContext(), ownername + " (" + location.getLatitude() + "," + location.getLongitude() + ")\n" + addressText, Toast.LENGTH_LONG).show();
+			    //Toast.makeText(getApplicationContext(), ownername + " (" + location.getLatitude() + "," + location.getLongitude() + ")\n" + addressText, Toast.LENGTH_LONG).show();
 	        }
 
 		    
@@ -262,7 +260,8 @@ public class MapDirectActivity extends FragmentActivity implements
 	    	if(timer == 2){
 	    		myLocationClient.removeLocationUpdates(this);
 	    		timer = 0;
-    		
+	    		//Toast.makeText(getApplicationContext(), "Your car has been marked in Red", Toast.LENGTH_SHORT).show();
+		    	
 	    		if(myMap!=null){
 	    		
 	    			// Enable MyLocation Button in the Map
@@ -273,6 +272,12 @@ public class MapDirectActivity extends FragmentActivity implements
 	    			LatLng origin = new LatLng(location.getLatitude(), location.getLongitude());//markerPoints.get(0);
 	    			LatLng dest = (LatLng) intent.getExtras().get("toPosition");//markerPoints.get(1);
 	    			
+	    			// add mark to destination
+	    			String destAddText = getAddressText(dest.latitude, dest.longitude);
+	    			myMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+	    	        .position(dest).title(destAddText).alpha(1.0f).visible(true));
+	    			//Toast.makeText(getApplicationContext(), "The pessenger has been marked in Green", Toast.LENGTH_SHORT).show();
+	    			
 	    			// Getting URL to the Google Directions API
 	    			String url = getDirectionsUrl(origin, dest);				
 	    			
@@ -281,10 +286,7 @@ public class MapDirectActivity extends FragmentActivity implements
 	    			// Start downloading json data from Google Directions API
 	    			downloadTask.execute(url);
 	    			
-	    			// add mark to destination
-	    			String destAddText = getAddressText(dest.latitude, dest.longitude);
-	    			myMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
-	    	        .position(dest).title(destAddText).alpha(1.0f).visible(true));
+	    						    	
 	    		}		
 	        }
 	    }
@@ -381,7 +383,6 @@ public class MapDirectActivity extends FragmentActivity implements
 			// Downloading data in non-ui thread
 			@Override
 			protected String doInBackground(String... url) {
-					
 				// For storing data from web service
 				String data = "";
 						
@@ -415,6 +416,7 @@ public class MapDirectActivity extends FragmentActivity implements
 			@Override
 			protected List<List<HashMap<String, String>>> doInBackground(String... jsonData) {
 				
+		    	
 				JSONObject jObject;	
 				List<List<HashMap<String, String>>> routes = null;			           
 	            

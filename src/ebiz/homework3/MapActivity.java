@@ -1,22 +1,22 @@
 package ebiz.homework3;
 
-/***
- * @title 08723 - Homework 2
- * @author yutongl2@andrew.cmu.edu
- * @time 07/22/2014
- *
- */
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
@@ -24,6 +24,7 @@ import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
@@ -44,6 +45,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import ebiz.homework3.bean.Passenger;
+import ebiz.homework3.twitteroauth.TweetActivity;
+
 public class MapActivity extends FragmentActivity implements 	
 					GooglePlayServicesClient.ConnectionCallbacks,
 					GooglePlayServicesClient.OnConnectionFailedListener,
@@ -63,7 +67,7 @@ public class MapActivity extends FragmentActivity implements
 	            .setInterval(5000)         // 5 seconds
 	            .setFastestInterval(16)    // 16ms = 60fps
 	            .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-	
+	    
 	    
 	// FragmentActivity - Start
 	    @Override
@@ -207,12 +211,9 @@ public class MapActivity extends FragmentActivity implements
 	     */
 	    @Override
 	    public void onLocationChanged(Location location) {
-	    	Log.v("info", "onlocatiochanged start");
 	    	timer ++;
-	    	if(timer == 2){
-	    		myLocationClient.removeLocationUpdates(this);
-	    		timer = 0;
-	    	}
+	    	Log.v("info", "onlocatiochanged start");
+
 	    	// check if the location is null
 	    	if (location == null) {
 	    		myLocationClient.removeLocationUpdates(this);
@@ -262,12 +263,62 @@ public class MapActivity extends FragmentActivity implements
 			    
 			    //[todo]send location+above to server
 			    Toast.makeText(getApplicationContext(), ownername + " (" + location.getLatitude() + "," + location.getLongitude() + ")\n" + addressText, Toast.LENGTH_LONG).show();
-	        }
-
-		    
+	        }		    
 	        Log.v("info", "onlocatiochanged end");
-	    }
+	        
+	    	if(timer == 2){
+	    		myLocationClient.removeLocationUpdates(this);
+	    		timer = 0;
+	    		
+	        	// retrieve owner info
+		        Intent intent = getIntent();
+			    String ownername = intent.getStringExtra(CarPostActivity.OWNERNAME);
+			    String ownertime = intent.getStringExtra(CarPostActivity.OWNERTIME);
+			    String ownermile = intent.getStringExtra(CarPostActivity.OWNERMILE);
+			    String ownerplno = intent.getStringExtra(CarPostActivity.OWNERPLNO);
+			    String ownerarea = intent.getStringExtra(CarPostActivity.OWNERAREA);
+				DateFormat dateFormat = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
+				Date date = new Date();
+				String currentDT = dateFormat.format(date);	
+			    /*String composedInfo = "Hi, This is " + ownername + " !" + " My car (Plate:" +ownerplno+ ") is available to pick you up within " + ownermile + " miles. " + "The service is available for " + ownertime + " minutes. " + 
+			    "I am serving such areas: " + ownerarea + ". Please check the CarPool app to see if I could serve you. Thank You!";
+			    */
+			    String composedInfo = "Hey! My car (Plate:" +ownerplno+ ") is available to pick you up. Please check CarPool to see if I could serve you! @" + currentDT;
 	
+			    // prepare a dialog for twitter
+	    		popupDialogForTwitter("Tweet Your Carpooling Post", "Would you like to post your service on Twitter?", composedInfo);
+	    	}
+	    }
+		private void popupDialogForTwitter(String title, String message, final String tweetMessage){
+			final SharedPreferences app_preferences = PreferenceManager.getDefaultSharedPreferences(this);
+			   	// create a pop up window to let the user know
+			   	AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AlertDialogCustom));
+			   	// create textview for centre title
+				TextView myMsg = new TextView(this);
+				myMsg.setText(title);
+				myMsg.setGravity(Gravity.CENTER_HORIZONTAL);
+				myMsg.setTextSize(18);
+				myMsg.setTextColor(Color.RED);
+				// set custom title
+				builder.setCustomTitle(myMsg);
+				// set message
+				builder.setMessage(message);
+				// set button
+				builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+				    public void onClick(DialogInterface dialog, int id) {
+				    	// connect to twitter for authentication
+				        Intent intent = new Intent(MapActivity.this, TweetActivity.class);
+				        intent.putExtra("tweet", tweetMessage);
+				        SharedPreferences.Editor editor = app_preferences.edit().putString("tweet", tweetMessage);
+				        editor.commit();
+				        startActivity(intent);
+				    }
+				});
+				builder.setNegativeButton("No", null);
+				// display the dialog
+				builder.show();
+		   
+		   }
 	   private void gotoMyLocation(double lat, double lng) {
 	       changeCamera(CameraUpdateFactory.newCameraPosition(new CameraPosition.Builder()
 	    		   													.target(new LatLng(lat, lng)).zoom(15.5f).bearing(0).tilt(25).build()
