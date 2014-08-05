@@ -29,7 +29,7 @@ import twitter4j.auth.RequestToken;
 
 public class TwitterActivity extends Activity {
 
-    Button buttonUpdateStatus;//, buttonLogout;
+    Button buttonUpdateStatus, buttonLogout;
     EditText editTextStatus;
     TextView textViewStatus, textViewUserName;
 
@@ -52,13 +52,13 @@ public class TwitterActivity extends Activity {
 
     private void initializeComponent() {
         buttonUpdateStatus = (Button) findViewById(R.id.buttonUpdateStatus);
-        //buttonLogout = (Button) findViewById(R.id.buttonLogout);
+        buttonLogout = (Button) findViewById(R.id.buttonLogout);
         editTextStatus = (EditText) findViewById(R.id.editTextStatus);// the tweet
         editTextStatus.setText(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("tweet", "Compose your tweet here..."));
         textViewStatus = (TextView) findViewById(R.id.textViewStatus);
         textViewUserName = (TextView) findViewById(R.id.textViewUserName);
         buttonUpdateStatus.setOnClickListener(buttonUpdateStatusOnClickListener);
-        //buttonLogout.setOnClickListener(buttonLogoutOnClickListener);
+        buttonLogout.setOnClickListener(buttonLogoutOnClickListener);
     }
 	public void onClickBackToPost(View view) {
         // go to the post me page

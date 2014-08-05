@@ -22,14 +22,14 @@
     <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Tweet"
+            android:text="Tweet Message"
             android:id="@+id/buttonUpdateStatus" android:layout_marginLeft="10dp" android:layout_marginRight="10dp"/>
-<!--     <Button
+     <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Logout"
+            android:text="Logout Twitter"
             android:id="@+id/buttonLogout" android:layout_marginLeft="10dp" android:layout_marginRight="10dp"
-            android:layout_marginTop="50dp"/> -->
+            android:layout_marginTop="10dp"/> 
     
     <Button
             android:layout_width="fill_parent"

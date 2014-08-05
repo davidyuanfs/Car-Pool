@@ -292,13 +292,13 @@ public class MapActivity extends FragmentActivity implements
 		private void popupDialogForTwitter(String title, String message, final String tweetMessage){
 			final SharedPreferences app_preferences = PreferenceManager.getDefaultSharedPreferences(this);
 			   	// create a pop up window to let the user know
-			   	AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AlertDialogCustom));
+			   	AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.Theme_Base_AppCompat_Dialog_FixedSize));
 			   	// create textview for centre title
 				TextView myMsg = new TextView(this);
 				myMsg.setText(title);
 				myMsg.setGravity(Gravity.CENTER_HORIZONTAL);
 				myMsg.setTextSize(18);
-				myMsg.setTextColor(Color.RED);
+				myMsg.setTextColor(Color.WHITE);
 				// set custom title
 				builder.setCustomTitle(myMsg);
 				// set message

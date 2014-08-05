@@ -121,7 +121,7 @@ public class ViewRequestsActivity extends ListActivity {
 		    // set single item click listener and override the callback method
 		    requestListView.setOnItemClickListener(new OnItemClickListener() {
 		      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		          popupDialog("Pick up", passengers.get((int)id));
+		          popupDialog("Passenger to pick up", passengers.get((int)id));
 		      }
 		    });
 		    
@@ -129,19 +129,20 @@ public class ViewRequestsActivity extends ListActivity {
 	
 	   private void popupDialog(String title,final Passenger passenger){
 		   	// create a pop up window to let the user know
-		   	AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.AlertDialogCustom));
+		   	AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.Theme_Base_AppCompat_Dialog_FixedSize));
 		   	// create textview for centre title
 			TextView myMsg = new TextView(this);
 			myMsg.setText(title);
 			myMsg.setGravity(Gravity.CENTER_HORIZONTAL);
 			myMsg.setTextSize(18);
-			myMsg.setTextColor(Color.RED);
+			myMsg.setTextColor(Color.WHITE);
 			// set custom title
 			builder.setCustomTitle(myMsg);
 			// set message
-			builder.setMessage("Pick up " + passenger.toString());
+			//builder.setMessage("NAME: " + passenger.getName() + "\nTEL:     "+passenger.getPhone() + "\nDES:    " + passenger.getDescription());
+			builder.setMessage("Passenger Name: " + passenger.getName());
 			// set button
-			builder.setPositiveButton("Approve and Track", new DialogInterface.OnClickListener() {
+			builder.setPositiveButton("Approve", new DialogInterface.OnClickListener() {
 			    public void onClick(DialogInterface dialog, int id) {
 				    // [todo]leverage passenger's location(should be a field of a retrieved object from server since we alredy hold
 			    	//		 Name and plate number) and owner's location(retrieved from server again, based on the clicked list item) 
