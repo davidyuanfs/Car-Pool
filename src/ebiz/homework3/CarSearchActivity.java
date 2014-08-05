@@ -7,6 +7,7 @@ import java.util.Locale;
 
 import ebiz.homework3.bean.Driver;
 import ebiz.homework3.bean.Passenger;
+import ebiz.homework3.bean.RowItem;
 import ebiz.homework3.util.HttpClientConnection;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -40,7 +41,11 @@ import android.widget.Toast;
 import android.widget.Button;
 
 public class CarSearchActivity extends ListActivity {
-	private ListView carsListView;
+	
+	ListView carsListView;
+	List<RowItem> rowItems;
+	//===
+	//private ListView carsListView;
 	private TextView selectedItem;
 	private MyService mBoundService;
 	private Button buttonConfirm;
@@ -137,8 +142,8 @@ public class CarSearchActivity extends ListActivity {
 		Log.i("Address", addressText);
 
 		// [debug]set the location info to the textView below the two buttons
-		TextView textMessage = (TextView) findViewById(R.id.passenger_location);
-		textMessage.setText("Your location:" + addressText);
+		//TextView textMessage = (TextView) findViewById(R.id.passenger_location);
+		//textMessage.setText("Your location:" + addressText);
 
 		// [todo] query all qualified car posts using passenger's location and
 		// the input radis from server and store as array
@@ -171,9 +176,19 @@ public class CarSearchActivity extends ListActivity {
 		}
 
 		// set adapter
-		carsListView = getListView();
-		carsListView.setAdapter(new ArrayAdapter<Driver>(this,
-				android.R.layout.simple_list_item_1, drivers));
+		//carsListView = getListView();
+		//carsListView.setAdapter(new ArrayAdapter<Driver>(this, android.R.layout.simple_list_item_1, drivers));
+		// new codes replacing the above two lines:
+        rowItems = new ArrayList<RowItem>();
+        for (int i = 0; i < drivers.size(); i++) {
+            RowItem item = new RowItem(R.drawable.driver, drivers.get(i).getDriver(), 
+            		"Plate Number: "+drivers.get(i).getLicenceNumber(), "Max Waiting: " + drivers.get(i).getWaitTime());
+            rowItems.add(item);
+        }	 
+        carsListView = getListView();//(ListView) findViewById(R.id.list);
+        CustomBaseAdapter adapter = new CustomBaseAdapter(this, rowItems);
+        carsListView.setAdapter(adapter);
+		
 		// set single item click listener and override the callback method
 		carsListView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,

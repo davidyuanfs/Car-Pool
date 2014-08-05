@@ -16,4 +16,5 @@
     <string name="title_activity_direct">Directions</string>
 	<string name="title_activity_map_direct">Directions</string>
 	<string name="title_activity_tweet">Tweet Your Carpooling</string>
+	<string name="image">Image thumbnail</string>
 </resources>
