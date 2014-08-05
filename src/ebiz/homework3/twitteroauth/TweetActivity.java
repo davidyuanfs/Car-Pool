@@ -47,9 +47,9 @@ public class TweetActivity extends Activity {
     }
 
     private void initializeComponent() {
-        buttonLogin = (Button) findViewById(R.id.buttonLogin);
+        //buttonLogin = (Button) findViewById(R.id.buttonLogin);
 
-        buttonLogin.setOnClickListener(buttonLoginOnClickListener);
+        //buttonLogin.setOnClickListener(buttonLoginOnClickListener);
     }
 
     private View.OnClickListener buttonLoginOnClickListener = new View.OnClickListener() {
