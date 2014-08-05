@@ -45,7 +45,8 @@ public class CarSearchActivity extends ListActivity {
 	private MyService mBoundService;
 	private Button buttonConfirm;
 	private Button buttonSearch;
-	private Button buttonrefresh;
+	private Button buttonRefresh;
+	private Button buttonUpdate;
 	private TextView driverInfo;
 	private EditText searchBox;
 	
@@ -59,11 +60,12 @@ public class CarSearchActivity extends ListActivity {
 		setContentView(R.layout.activity_car_search);
 		buttonConfirm = (Button) findViewById(R.id.button_confirm);
 		buttonSearch = (Button) findViewById(R.id.button_search);
-		buttonrefresh = (Button) findViewById(R.id.button_search_refresh);
+		buttonRefresh = (Button) findViewById(R.id.button_search_refresh);
+		buttonUpdate = (Button) findViewById(R.id.button_update);
 		driverInfo = (TextView)findViewById(R.id.driver_info);
 		searchBox = (EditText)findViewById(R.id.edit_mile);
 		carsListView = (ListView) findViewById(android.R.id.list);
-		buttonConfirm.setBackgroundColor(Color.RED);
+		
 	}
 	
 	@Override
@@ -71,23 +73,31 @@ public class CarSearchActivity extends ListActivity {
 		super.onResume();
 		// get owner name and plate no from father intent
 		if(((CarPoolApplication) this.getApplication()).isPickingUp()){
+			String passenger = ((CarPoolApplication) this.getApplication()).getPassengerName();
 			buttonConfirm.setVisibility(View.VISIBLE);
+			buttonUpdate.setVisibility(View.VISIBLE);
 			driverInfo.setVisibility(View.VISIBLE);
 			String driver = ((CarPoolApplication) this.getApplication()).getPickDriver();
 			String plateNumber = ((CarPoolApplication) this.getApplication()).getPlateNumber();
-			driverInfo.setText("Waiting for "+driver+ " to pick you up! Plate Number:" + plateNumber);
-			buttonSearch.setVisibility(View.INVISIBLE);
-			buttonrefresh.setVisibility(View.INVISIBLE);
-			searchBox.setVisibility(View.INVISIBLE);
+			if(((CarPoolApplication) this.getApplication()).isApproved()){
+				driverInfo.setText("Hi, "+passenger+" !\n"+driver+" already approved and is coming to pick you up! Plate Number:" + plateNumber);
+				buttonConfirm.setBackgroundColor(Color.GREEN);
+			}
+			else
+				driverInfo.setText("Hi,"+passenger+"!\n Not approve yet by "+driver+". Plate Number:" + plateNumber);
+			buttonSearch.setVisibility(View.GONE);
+			buttonRefresh.setVisibility(View.GONE);
+			searchBox.setVisibility(View.GONE);
 			carsListView.setVisibility(View.INVISIBLE);
 		}else{
 			buttonSearch.setVisibility(View.VISIBLE);
-			buttonrefresh.setVisibility(View.VISIBLE);
+			buttonRefresh.setVisibility(View.VISIBLE);
 			searchBox.setVisibility(View.VISIBLE);
 			carsListView.setVisibility(View.VISIBLE);
 			
 			driverInfo.setVisibility(View.INVISIBLE);
 			buttonConfirm.setVisibility(View.INVISIBLE);
+			buttonUpdate.setVisibility(View.INVISIBLE);
 		}
 		
 	}
@@ -98,6 +108,32 @@ public class CarSearchActivity extends ListActivity {
 	
 	public void completedRide(View view) throws Exception {
 		((CarPoolApplication) this.getApplication()).setPickingUp(false);
+		((CarPoolApplication) this.getApplication()).setApproved(false);
+		onResume();
+		finish();
+	}
+	
+	public void updateStatus(View view) throws Exception {
+		String passengerName = ((CarPoolApplication) this.getApplication()).getPassengerName();
+		final String url = client.getApprovedURL(passengerName);
+		
+		System.out.println(url);
+		final String[] result = new String[1];
+		Thread thread = new Thread(new Runnable() {
+			public void run() {
+				try {
+					result[0] = client.sendGet(url).trim();
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		thread.start();
+		thread.join();
+		
+		boolean Approved = result[0].equals("true")?true:false;
+		((CarPoolApplication) this.getApplication()).setApproved(Approved);
 		onResume();
 	}
 	

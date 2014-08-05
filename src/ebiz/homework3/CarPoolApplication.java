@@ -6,8 +6,11 @@ public class CarPoolApplication extends Application {
 
     private boolean isPickingUp = false;
     
-    private String pickDriver;
-    private String plateNumber;
+    private boolean approved = false;
+    
+    private String pickDriver = "";
+    private String plateNumber = "";
+    private String passengerName = "";
     
 	public boolean isPickingUp() {
 		return isPickingUp;
@@ -31,5 +34,21 @@ public class CarPoolApplication extends Application {
 
 	public void setPlateNumber(String plateNumber) {
 		this.plateNumber = plateNumber;
+	}
+
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
+	}
+
+	public String getPassengerName() {
+		return passengerName;
+	}
+
+	public void setPassengerName(String passengerName) {
+		this.passengerName = passengerName;
 	}
 }

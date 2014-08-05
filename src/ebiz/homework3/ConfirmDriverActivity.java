@@ -79,6 +79,7 @@ public class ConfirmDriverActivity extends ListActivity {
 				((CarPoolApplication) this.getApplication()).setPickingUp(true);
 				((CarPoolApplication) this.getApplication()).setPickDriver(ownerNameVal);
 				((CarPoolApplication) this.getApplication()).setPlateNumber(ownerPlateNoVal);
+				((CarPoolApplication) this.getApplication()).setPassengerName(passenger.getName());
 			}
 			finish();
 			

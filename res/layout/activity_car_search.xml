@@ -7,37 +7,49 @@
 
     <TextView
         android:id="@+id/driver_info"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_width="wrap_content"
-        android:layout_height="45dp"
+        android:layout_height="60dp"
         android:layout_gravity="center"
         android:textSize="20sp" />
 
         <Button
             android:id="@+id/button_confirm"
-            android:layout_width="240dp"
-            android:layout_height="45dp"
             android:layout_marginTop="130dp"
-            android:layout_alignParentLeft="true"
+            android:layout_width="300dp"
+        	android:layout_height="45dp"
+        	android:layout_gravity="center"
             android:layout_below="@+id/driver_info"
             android:onClick="completedRide"
-            android:text="Already Picked Up!"
+            android:layout_marginLeft="25dp"
+            android:text="Already picked up"
             android:visibility="invisible" />
-    
+        <Button
+            android:id="@+id/button_update"
+            android:layout_marginTop="185dp"
+            android:layout_width="300dp"
+        	android:layout_height="45dp"
+        	android:layout_gravity="center"
+            android:layout_below="@+id/driver_info"
+            android:onClick="updateStatus"
+            android:layout_marginLeft="25dp"
+            android:text="Update approved status"
+            android:visibility="invisible" />
     <EditText
         android:id="@+id/edit_mile"
+        android:layout_marginTop="5dp"
         android:layout_width="fill_parent"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:ems="10"
         android:hint="@string/edit_mile" >
-
         <requestFocus />
     </EditText>
 
     <Button
         android:id="@+id/button_search"
+        android:layout_marginTop="5dp"
         android:layout_width="136dp"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
